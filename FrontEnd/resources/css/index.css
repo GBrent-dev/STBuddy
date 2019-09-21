@@ -1,0 +1,12 @@
+.tabs{
+    position: absolute;
+    width: 155px;
+    height: 64px;
+    left: 474px;
+    top: 182px;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    transform: matrix(0, 1, 1, 0, 0, 0);
+}
