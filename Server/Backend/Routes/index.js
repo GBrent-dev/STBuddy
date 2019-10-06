@@ -1,9 +1,9 @@
 var express             = require("express");
 var router              = express.Router();
 var passport            = require("passport");
-var User                = require("../models/user");
+var User                = require("../Models/user");
 var jwt = require('jsonwebtoken');
-require('../Authentication/passport');
+require('../Authenticiation/passport');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //Get the default connections
@@ -21,7 +21,7 @@ router.post('/login', function(req, res, next) {
           res.json({success: true, msg: 'successfully logged in', token: token});
       
          }
-  })
+  }) 
     (req, res, next);
   });
 //google auth route:

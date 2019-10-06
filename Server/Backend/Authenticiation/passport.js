@@ -5,13 +5,14 @@ const passport = require('passport'),
   ExtractJWT = require('passport-jwt').ExtractJwt;
 var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
+require('dotenv').config();
 mongoose.Promise = global.Promise;
 //Get the default connection
 var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 (db.on('error', console.error.bind(console, 'MongoDB connection error:')));
 
-var User = require('../models/user');
+var User = require('../Models/user');
 
 passport.use(
   'register',
@@ -23,28 +24,29 @@ passport.use(
     },
     (email, password, done) => {
       try{
-      User.findOne(
-           {email: email},
-           (err, user) => {
-          if (user != null) {
-            return done(null, false, { message: 'Email already taken' });
-          }
-          else {
-            let newUser = new User();
-            // set the user's local credentials
-            newUser.email = email;
-            newUser.password = password;
-            newUser.join_time = Date.now();
-            // save the user
-            newUser.save((err)=>{
-                if (err)
-                    return done(err);
-                return done(null, newUser.email);
-            // note the return needed with passport local - remove this return for passport JWT to work
-        });
-      }
-    });
-      } catch (err) {
+        User.findOne(
+          {email: email},
+          (err, user) => {
+            if (user != null) {
+              return done(null, false, { message: 'Email already taken' });
+            }
+            else {
+              let newUser = new User();
+              // set the user's local credentials
+              newUser.email = email;
+              newUser.password = password;
+              newUser.join_time = Date.now();
+              // save the user
+              newUser.save((err)=>{
+                  if (err)
+                      return done(err);
+                  return done(null, newUser.email);
+              // note the return needed with passport local - remove this return for passport JWT to work
+              });
+            }
+          });
+      } 
+      catch (err) {
         done(err);
       }
     },
@@ -72,9 +74,9 @@ passport.use( 'login',
         if (!isMatch) {return done(null,false, {message:'invalid Password'}); }  
         else {return done(null, dbUser)
         
-        }
-    });
-  }
+            }
+        });
+      }
       // If none of the above, return the user
     });
   }

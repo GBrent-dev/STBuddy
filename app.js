@@ -61,7 +61,6 @@ app.use("/css",express.static(__dirname + "/resources/css"));
 app.use("/PWA",express.static(__dirname + "/PWA"));
 app.use(methodOverride('_method'));
 
-
 //Authentication:
 app.use(passport.initialize());
 
@@ -85,10 +84,11 @@ app.get("/analysis/new",  (req, res) => {
    res.render("new"); 
 });
 
+
 //Routes
-indexRoutes  = require("../Backend/Routes/index");
+indexRoutes  = require("./Server/Backend/Routes/index");
 app.use("/",  indexRoutes);
-APIRoutes = require("../Backend/Routes/api");
+APIRoutes = require("./Server/Backend/Routes/api");
 app.use("/api", APIRoutes);
 
 app.listen(port, function(){

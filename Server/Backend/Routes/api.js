@@ -2,7 +2,7 @@ var express             = require("express");
 var router              = express.Router();
 //var User                = require("../models/user");
 //var jwt = require('jsonwebtoken');
-require('../../Backend/Authenticiation/passport');
+require('../Authenticiation/passport');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //Get the default connections
@@ -17,7 +17,7 @@ router.post("/", function(req, res){
     res.json({success: true, msg: 'Welcome to StockBuddy'})
 });
 
-app.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
+router.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
     //CREATE - add new events to DB
     var name = req.body.name;
     var category = req.body.category;
@@ -33,7 +33,7 @@ app.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
     }) 
  });
  
- app.get("/analysis/:id",  (req, res) => {
+ router.get("/analysis/:id",  (req, res) => {
      analysis.findById(req.params.id, function(err, analysis){
        if(err){
            res.redirect("/");
@@ -43,7 +43,7 @@ app.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
     });
  });
  
- app.get("/analysis/:id/edit",  (req, res) => {
+ router.get("/analysis/:id/edit",  (req, res) => {
      Analysis.findById(req.params.id, function(err, analysis){
         if(err){
             console.log(err);
@@ -54,7 +54,7 @@ app.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
     });
  });
  
- app.put("/analysis/:id",  (req, res) => {
+ router.put("/analysis/:id",  (req, res) => {
      Analysis.findByIdAndUpdate(req.params.id, req.body.blog, function(err, analysis){
         if(err){
             console.log(err);
@@ -65,7 +65,7 @@ app.post("/analysis/new",/*middleware.isLoggedIn ,*/(req, res) => {
     });
  });
  
- app.delete("/analysis/:id",  (req, res) => {
+ router.delete("/analysis/:id",  (req, res) => {
      Analysis.findById(req.params.id, function(err, analysis){
         if(err){
             console.log(err);
