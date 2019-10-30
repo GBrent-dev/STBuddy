@@ -53,8 +53,8 @@ router.get('/auth/google/callback',
     res.render("index", {user:"TestUser"});
 });
 
-router.get("/*", function(req, res){
-        res.redirect("/index");   
-});
+// router.get("/*", function(req, res){
+//         res.redirect("/");   
+// });
 
  module.exports = router;

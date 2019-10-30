@@ -59,31 +59,11 @@ app.use("/manifest", express.static(__dirname + "/manifest.json"));
 app.use("/images",express.static(__dirname + "/resources/images"));
 app.use("/css",express.static(__dirname + "/resources/css"));
 app.use("/PWA",express.static(__dirname + "/PWA"));
+app.set("views", "./Server/views");
 app.use(methodOverride('_method'));
 
 //Authentication:
 app.use(passport.initialize());
-
-
-app.get("/", (req, res) => {
-    console.log("Pushing Index");
-    res.render("index", {user:"TestUser"});
-});
-
-app.get("/analysis",  (req, res) => {
-    Analysis.find({}, function(err, MarketSummary){
-        if(err){
-            console.log(err);
-        } else {
-            res.json(MarketSummary); 
-        }
-    })
-});
-
-app.get("/analysis/new",  (req, res) => {
-   res.render("new"); 
-});
-
 
 //Routes
 indexRoutes  = require("./Server/Backend/Routes/index");
